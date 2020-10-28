@@ -8,58 +8,208 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Screen Transition',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: <String, WidgetBuilder>{
+        '/': (_) => new Splash(),
+        '/login': (_) => new Login(),
+        '/home': (_) => new Home(),
+        '/next': (_) => new Next(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+/* ============================= */
+/* スプラッシュ画面 */
+/* ============================= */
+class Splash extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SplashState createState() => _SplashState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _SplashState extends State<Splash> {
+  void handleTimeout() {
+    Navigator.of(context).pushReplacementNamed('/login');
+  }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+
+    new Future<dynamic>.delayed(const Duration(seconds: 3))
+        .then((dynamic value) => handleTimeout());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return Container();
+  }
+}
+
+/* ============================= */
+/* ログイン画面 */
+/* ============================= */
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: const Text('Login'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: new Center(
+        child: new Form(
+          child: new SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                const SizedBox(height: 24),
+                new TextFormField(
+                  decoration: const InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      labelText: 'User ID'),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                new TextFormField(
+                  maxLength: 8,
+                  decoration: const InputDecoration(
+                    border: const UnderlineInputBorder(),
+                    labelText: 'Password',
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                new Center(
+                  child: new RaisedButton(
+                    child: const Text('Login'),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed('/home');
+                    },
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/* ============================= */
+/* ホーム画面 */
+/* ============================= */
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: const Text('Home'),
+      ),
+      body: new Center(
+        child: new RaisedButton(
+          child: const Text('Launch Next Screen'),
+          onPressed: () {
+            Navigator.of(context).pushNamed('/next');
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/* ============================= */
+/* その他の画面 */
+/* ============================= */
+class Next extends StatefulWidget {
+  @override
+  _NextState createState() => _NextState();
+}
+
+class _NextState extends State<Next> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: const Text('Next'),
+      ),
+      body: new Center(
+        child: new Column(
+          children: <Widget>[
+            const SizedBox(
+              height: 24,
+            ),
+            new RaisedButton(
+              child: const Text('Launch Next Screen'),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/next');
+              },
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            new RaisedButton(
+              child: const Text('Back to Home'),
+              onPressed: () {
+                Navigator.popUntil(context, ModalRoute.withName('/home'));
+              },
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            new RaisedButton(
+              child: const Text('Logout'),
+              onPressed: () {
+                showDialog<bool>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return new AlertDialog(
+                      content: const Text('Do you want logout?'),
+                      actions: <Widget>[
+                        new FlatButton(
+                          child: const Text('No'),
+                          onPressed: () {
+                            // call then false
+                            Navigator.of(context).pop(false);
+                          },
+                        ),
+                        new FlatButton(
+                          child: const Text('Yes'),
+                          onPressed: () {
+                            // call then true
+                            Navigator.of(context).pop(true);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ).then<void>((isClose) {
+                  if (!isClose) {
+                    return;
+                  }
+
+                  Navigator.pushAndRemoveUntil<dynamic>(
+                      context,
+                      new MaterialPageRoute<dynamic>(
+                          builder: (context) => new Splash()),
+                      (_) => false);
+                });
+              },
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
