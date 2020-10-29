@@ -122,7 +122,7 @@ class Home extends StatelessWidget {
         child: new RaisedButton(
           child: const Text('Launch Next Screen'),
           onPressed: () {
-            Navigator.of(context).pushNamed('/next');
+            Navigator.of(context).pushNamed('/next', arguments: '/home');
           },
         ),
       ),
@@ -151,10 +151,14 @@ class _NextState extends State<Next> {
             const SizedBox(
               height: 24,
             ),
+            new Text('Launch by ${ModalRoute.of(context).settings.arguments}'),
+            const SizedBox(
+              height: 24,
+            ),
             new RaisedButton(
               child: const Text('Launch Next Screen'),
               onPressed: () {
-                Navigator.of(context).pushNamed('/next');
+                Navigator.of(context).pushNamed('/next', arguments: '/next');
               },
             ),
             const SizedBox(
