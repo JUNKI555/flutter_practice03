@@ -11,3 +11,5 @@
   - https://medium.com/flutter-community/flutter-layout-cheat-sheet-5363348d037e
 - FlutterでColumnのコンテンツを画面中央に配置する | Qiita
   - https://qiita.com/sekitaka_1214/items/03255fd9f61685503af3
+- パディングを調整する | わかりやすいFlutterリファレンス
+  - https://nzigen.com/flutter-reference/2018-04-15-padding.html
