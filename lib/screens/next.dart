@@ -11,6 +11,28 @@ class Next extends StatefulWidget {
 }
 
 class _NextState extends State<Next> {
+  AlertDialog _alertDialog() {
+    return new AlertDialog(
+      content: const Text('Do you want logout?'),
+      actions: <Widget>[
+        new FlatButton(
+          child: const Text('No'),
+          onPressed: () {
+            // call then false
+            Navigator.of(context).pop(false);
+          },
+        ),
+        new FlatButton(
+          child: const Text('Yes'),
+          onPressed: () {
+            // call then true
+            Navigator.of(context).pop(true);
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -57,25 +79,7 @@ class _NextState extends State<Next> {
                   showDialog<bool>(
                     context: context,
                     builder: (BuildContext context) {
-                      return new AlertDialog(
-                        content: const Text('Do you want logout?'),
-                        actions: <Widget>[
-                          new FlatButton(
-                            child: const Text('No'),
-                            onPressed: () {
-                              // call then false
-                              Navigator.of(context).pop(false);
-                            },
-                          ),
-                          new FlatButton(
-                            child: const Text('Yes'),
-                            onPressed: () {
-                              // call then true
-                              Navigator.of(context).pop(true);
-                            },
-                          ),
-                        ],
-                      );
+                      return _alertDialog();
                     },
                   ).then<void>((isClose) {
                     if (!isClose) {
