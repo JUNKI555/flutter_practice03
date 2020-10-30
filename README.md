@@ -13,3 +13,5 @@
   - https://qiita.com/sekitaka_1214/items/03255fd9f61685503af3
 - パディングを調整する | わかりやすいFlutterリファレンス
   - https://nzigen.com/flutter-reference/2018-04-15-padding.html
+- Flutter で超簡単にダークモードに対応する | たくチャレ
+  - https://blog.takuchalle.dev/post/2020/02/12/apply-dark-mode/
