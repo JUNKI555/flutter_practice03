@@ -15,9 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Screen Transition',
       theme: ThemeData(
+        brightness: Brightness.light,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      darkTheme: ThemeData(brightness: Brightness.dark),
       routes: <String, WidgetBuilder>{
         '/': (_) => new Splash(),
         '/login': (_) => new Login(),
