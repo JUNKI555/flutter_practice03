@@ -11,6 +11,13 @@ class Next extends StatefulWidget {
 }
 
 class _NextState extends State<Next> {
+  void _navigateSplash() {
+    Navigator.pushAndRemoveUntil<dynamic>(
+        context,
+        new MaterialPageRoute<dynamic>(builder: (context) => new Splash()),
+        (_) => false);
+  }
+
   AlertDialog _alertDialog() {
     return new AlertDialog(
       content: const Text('Do you want logout?'),
@@ -86,11 +93,7 @@ class _NextState extends State<Next> {
                       return;
                     }
 
-                    Navigator.pushAndRemoveUntil<dynamic>(
-                        context,
-                        new MaterialPageRoute<dynamic>(
-                            builder: (context) => new Splash()),
-                        (_) => false);
+                    _navigateSplash();
                   });
                 },
               ),
