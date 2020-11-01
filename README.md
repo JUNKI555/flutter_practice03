@@ -15,3 +15,8 @@
   - https://nzigen.com/flutter-reference/2018-04-15-padding.html
 - Flutter で超簡単にダークモードに対応する | たくチャレ
   - https://blog.takuchalle.dev/post/2020/02/12/apply-dark-mode/
+
+## Application Images
+![image1.png](https://github.com/JUNKI555/flutter_practice02/blob/main/image1.png)
+![image2.png](https://github.com/JUNKI555/flutter_practice02/blob/main/image2.png)
+![image3.png](https://github.com/JUNKI555/flutter_practice02/blob/main/image3.png)
